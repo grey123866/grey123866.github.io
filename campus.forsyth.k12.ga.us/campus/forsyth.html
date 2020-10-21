@@ -1,0 +1,298 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<HTML>
+
+<!-- Mirrored from campus.forsyth.k12.ga.us/campus/forsyth.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Oct 2020 15:19:55 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=ISO-8859-1" /><!-- /Added by HTTrack -->
+<HEAD>
+    <META NAME="ROBOTS" CONTENT="NOINDEX"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <LINK rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <BASE />
+    <TITLE>Forsyth Login</TITLE>
+    <script language="Javascript" src="scripts/login.js"></script>
+    <SCRIPT language="Javascript">
+        function start(){
+            /*conditional to check contents of page to only refresh in specific scenarios to get around issues such
+            as plugins adding in their own frames such as documented in SIS-123400. We refresh the page to prevent
+            potential edge case errors with a session timing out and having the login page display in an inner iframe.
+             */
+            if(parent.frames.length !== 0 && (top.document.getElementById('mainBody') !== null) || top.document.getElementsByTagName("ic-nav-wrapper-app").length > 0) {
+                
+                top.location = this.location;
+                
+            }
+            document.getElementById("username").focus();
+
+            if (location.hash) {
+                var successURLObj = document.getElementById("successURL");
+                if (successURLObj && successURLObj.value.indexOf("#") === -1) {
+                    successURLObj.value = successURLObj.value + location.hash;
+                }
+            }
+
+            
+                $('#form_signin').css("paddingTop", "0");
+
+                var status = "";
+                if (status === "samlLoginThruCampus") {
+                    // There is a race condition and alert occurs before changing the styles. We setTimeout() on the alert.
+                    setTimeout(function(){
+                        alert("This user account requires the use of the login button above the Campus username and password text boxes.");
+                        document.getElementById("samlloginlink").focus();
+                    }, 50);
+                }
+            
+
+            // clear HR items from session storage - needed if a user clicked the 'logoff' button but didn't close the window
+            sessionStorage.removeItem('currentHRTool');
+            sessionStorage.removeItem('personnelMasterAdvancedSearch');
+        }
+
+        function sendEmail() {
+            var email = encodeURIComponent($('#useremail').val());
+            var appName = 'forsyth';
+            $.get('username?email=' + email + '&appName=' + appName, function(data) {
+                $('#usernamebox').html(data);
+            }, "html");
+        }
+
+        function sendPasswordEmail() {
+            var username = encodeURIComponent($('#usernameinput').val());
+            var appName = 'forsyth';
+            $.get('passwordreset?username=' + username + '&appName=' + appName + '&fromPortal=False', function(data) {
+                $('#passwordbox').html(data);
+            }, "html")
+        }
+
+        function retry() {
+            $('#usernamebox').html('<input id="useremail" class="passwordResetInput" type="text" value="" placeholder="Enter Account Security Email" aria-label="Account Security Email"/>' +
+                '<input id="usernamebutton" class="passwordResetButton" type="button" onclick="sendEmail();" value="Continue"/>');
+        }
+
+        function retryPassword() {
+            $('#passwordbox').html('<input id="usernameinput" class="passwordResetInput" type="text" value="" placeholder="Enter Username" aria-label="Username"/>' +
+                '<input id="passwordbutton" class="passwordResetButton" type ="button"  onclick="sendPasswordEmail()" value="Continue"/>');
+        }
+
+        function toggleSSOError(){
+            $('#divSSOError').toggle('fast', function(){
+                if($('#aShowSSOErr').text() == "(Show detail)"){
+                    $('#aShowSSOErr').text("(Show less)");
+                }else{
+                    $('#aShowSSOErr').text("(Show detail)");
+                }
+            });
+        }
+
+        function reCaptchaCallback() {
+            var reCaptchaSiteKey = "";
+
+            grecaptcha.render("recaptcha", {
+                'sitekey': reCaptchaSiteKey
+            });
+        }
+    </script>
+    <script src="scripts/jquery/jquery-1.7.2/jquery-campus-1.7.2.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var contextComm = parent.campusContextCommunicator;
+            if(contextComm){
+                contextComm.redirectToLogin();
+            }
+        });
+
+
+    </script>
+    <link rel="stylesheet" type="text/css" href="styles/login3860.css?v=1" />
+</HEAD>
+
+<body onload='start()'>
+<div class="container">
+    <div class="logocontainer">
+        <img class="floatleft" alt="" src="images/login/campus_logo.png">
+        <img class="floatright" alt="" src="images/login/transforming_k12.png">
+    </div>
+    <div class="frmcontainer">
+        <div class="editionbox">
+            <table id="editionlayout" border="0" cellpadding="0" cellspacing="0">
+                <tr valign="top">
+                    <td class="fillertd">&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td class="lefteditionbox"></td>
+                    <td class="centereditionbox" align="right"><div class="editiontext">District Edition</div></td>
+                    <td class="righteditionbox"></td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="versionmsgtd" align="right">
+                        <div class="versionmsg">Version: Campus.2036.11</div>
+                        <div class="securitylabel">Forsyth</div>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        
+            <div style="text-align: left;padding-left: 25px;padding-top: 50px;">
+                <a id="samlloginlink" href="https://fcss-adfs.forsyth.k12.ga.us/adfs/ls/?SAMLRequest=fZFbT8MwDIX%2FSuT3XhI6bY3WThMT0iQGExs88ILSNNki2qTE6QT%2Fnu6CNCTEo318dOzP09ln25CD8micLYDGKRBlpauN3RXwvL2LJjArpyjahnV83oe9fVIfvcJABqNFflYK6L3lTqBBbkWrkAfJN%2FPVPWdxyjvvgpOuAbIYjMaKcArbh9AhTxItESNRa4y18%2FgV9vE7ZfFOxD0mx3bSYAJkuSjgrWJa0XyS1UzmOc0zXesqk6NJllZjNZbVMIZrgWgOqgAtGlTHDvZqaTEIGwpgKUsjmkaMbumI05yPxvENnbwCWXt3MLXyD8P%2BBSytNtYERW5F2%2FVINptHshJW7JQH8vLDa7gOLnT4KcdfY%2FmfyrCm8kcSUP6QkKesPzCcheQiTJPrxPJS%2Fn5P%2BQ0%3D&amp;RelayState=%2Fforsyth%2Fsis" class="samlLogin">
+                    Single Sign-On (SSO)
+                </a>
+            </div>
+
+            <div id="lineSeparator">
+                <h2><span  class="line-center">or</span></h2>
+            </div>
+
+        
+
+        <form method="POST" id="form_signin" accept-charset="utf-8" action="https://campus.forsyth.k12.ga.us/campus/verify.jsp">
+            <input type="hidden" name="appName" value="forsyth"/>
+            <input type="hidden" id="screen" name="screen" value=""/>
+            
+
+            
+
+            
+            <div class="container span2">
+                <div><label for="username">Username</label></div>
+                <input class="span2 login-text-input" type="text" id="username" name="username" title="Enter your username" autocomplete="off"/>
+            </div>
+
+            <div class="container span2">
+                <div><label for="password">Password</label></div>
+                <input class="span2 login-text-input" type="password" id="password" name="password" title="Enter your password" autocomplete="off"/>
+            </div>
+
+            
+
+            
+
+            
+
+            <div class="container span8">
+                <div class="span2 alignright">
+                    <input class="signinbtn" id="signinbtn" type="submit" value="Log In"/>
+                </div>
+                <div class="span4 alignleft">
+                    <div class="statusmsg"></div>
+                </div>
+            </div>
+            <input type="hidden" name="useCSRFProtection" value="true" />
+        </form>
+        <div class="passwordreset" style="padding-bottom:25px">
+                
+
+
+
+
+
+<div class="forgotpasswd span2">
+    
+        <a href="#" onclick="toggle('password');return false" class="login-help-link passwordToggle">Forgot Password?</a>
+        &nbsp;
+        <a href="#" onclick="toggle('username');return false" class="login-help-link userNameToggle">Forgot Username?</a>
+    
+    
+    &nbsp;
+    <a href="#" onclick="toggle('problems');return false" class="login-help-link helpToggle">Help</a>
+    
+</div>
+<div id="usernamebox" style="display: none;">
+    <input id="useremail" class="passwordResetInput" type="text" value="" placeholder="Enter Account Security Email" aria-label="Account Security Email"/>
+    <input id="usernamebutton" class="passwordResetButton" type="button"  onclick="sendEmail();" value="Continue"/>
+</div>
+<div id="passwordbox" style="display: none;">
+    <input id="usernameinput" class="passwordResetInput" type="text" value="" placeholder="Enter Username" aria-label="Username"/>
+    <input id="passwordbutton" type ="button" class="passwordResetButton" onclick="sendPasswordEmail()" value="Continue"/>
+</div>
+
+
+
+                <div id="helpbox" style="display:none;">
+                    <hr class="loginhr"style="margin-left:0; margin-right:0;" >
+                    <p>If you forgot your username, click the &#34;Forgot Username&#34; link or the &#34;Forgot Password&#34; link on the previous page.  If you are unable to retrieve your username and/or password through the links, please go to your child&#39;s school with your picture identification to request or upload <a href="https://fcsapps.forsyth.k12.ga.us/InfoSystems/Parentportal" target="_blank" rel="noopener noreferrer">(Click here for the Parent Portal Upload)</a> a copy of your valid (not expired) picture identification (driver&#39;s license, state identification card, or passport) to request.</p><p>&#xfeff;</p><p>&#xfeff;If you do not have a Parent Portal account, please follow the directions in the District Announcements on the previous page.</p><p>&#xfeff;</p><p>If you still have questions about your Parent Portal user account or are having trouble logging in, please email <a target="_blank">parentportal&#64;forsyth.K12.ga.us</a>&#xfeff; for assistance.<br /></p>
+<br/><br><p> System Support Phone Number: (678)947-0863x312253</p>
+<br><p> System Support Email Address: <a href="mailto:parentportal@forsyth.K12.ga.us" target="_top">parentportal@forsyth.K12.ga.us</a></p>
+
+                </div>
+            </div>
+    </div>
+</div>
+
+<!--[if lt IE 10]>
+<div class="frmcontainer2">
+    <div class="editionbox">
+        <table id="editionlayout" border="0" cellpadding="0" cellspacing="0">
+            <tr valign="top">
+                <td class="fillertd">&nbsp;</td>
+                <td>&nbsp;</td>
+                <td class="lefteditionbox"></td>
+                <td class="centereditionbox" align="right"><div class="editiontext">Notice</div></td>
+                <td class="righteditionbox"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="notice"> <p><b>If you are using Internet Explorer 7 or 8, the browsers will no longer be supported as of June, 2015. Internet Explorer 9 has only limited support. <br> Please refer to the <a href="https://community.infinitecampus.com/kb/display/DOC/Supported+Platforms">Supported Platforms article</a> on the Campus Community.</b><p></div>
+</div>
+<div>&nbsp;</div>
+
+<![endif]-->
+
+<div class="appinfo">
+    <div>&copy;2003-2020 Infinite Campus, Inc.</div>
+    <div><a href="http://www.infinitecampus.com/" target="_blank">www.infinitecampus.com</a></div>
+    <div class="appserver">App Server=forsytga-app001</div>
+</div>
+
+<script>
+    $(document).on('keyup', '#useremail',  function(event){
+        if(event.which === 13){
+            $('#usernamebutton').click();
+        }
+    });
+    $(document).on('keyup', '#usernameinput', function(event){
+        if(event.which === 13){
+            $('#passwordbutton').click();
+        }
+    });
+</script>
+</body>
+
+<!-- Mirrored from campus.forsyth.k12.ga.us/campus/forsyth.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Oct 2020 15:19:56 GMT -->
+</HTML>

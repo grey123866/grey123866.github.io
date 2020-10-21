@@ -1,0 +1,5 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+campus.forsyth.k12.ga.us	TRUE	/	FALSE	1999999999	sis-cookie	!qs6yLmyIEaMYVJvrfghmq63C/itpbVd+v0oI7H3gwQM9AF7f3IAWsyA5fvgANqDcS974Dkq6SWwnyZ0=
+campus.forsyth.k12.ga.us	TRUE	/	FALSE	1999999999	lang	en
+
